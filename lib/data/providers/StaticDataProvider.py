@@ -10,7 +10,7 @@ class StaticDataProvider(BaseDataProvider):
     _current_index = 0
 
     def __init__(self, date_format: ProviderDateFormat, data_frame: pd.DataFrame = None, csv_data_path: str = None,
-                 skip_prepare_data: bool = False, **kwargs):
+                 skip_prepare_data: bool = True, **kwargs):
         BaseDataProvider.__init__(self, date_format, **kwargs)
 
         self.kwargs = kwargs
@@ -22,7 +22,12 @@ class StaticDataProvider(BaseDataProvider):
                 raise ValueError(
                     'Invalid "csv_data_path" argument passed to StaticDataProvider, file could not be found.')
 
-            self.data_frame = pd.read_csv(csv_data_path)
+            self.data_frame = pd.read_csv(csv_data_path,names=['Date', 'Time', 'Open', 'High', 'Low', 'Close' ,'Volume'])
+            self.data_frame = self.data_frame.drop(['Time'], axis=1)
+            self.data_frame = self.data_frame.sort_values(['Date'])
+            print(self.data_frame.head())
+            self.data_frame = add_indicators(self.data_frame.reset_index())
+            print(self.data_frame.head())
         else:
             raise ValueError(
                 'StaticDataProvider requires either a "data_frame" or "csv_data_path argument".')
