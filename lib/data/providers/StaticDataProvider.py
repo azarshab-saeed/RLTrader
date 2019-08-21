@@ -4,7 +4,7 @@ import os
 from typing import Tuple
 from lib.data.providers.dates import ProviderDateFormat
 from lib.data.providers import BaseDataProvider
-
+from lib.data.features.indicators import add_indicators
 
 class StaticDataProvider(BaseDataProvider):
     _current_index = 0
