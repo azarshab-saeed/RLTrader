@@ -48,7 +48,7 @@ class RLTrader:
         self.Reward_Strategy = reward_strategy
         self.exchange_args = exchange_args
         self.tensorboard_path = kwargs.get('tensorboard_path', None)
-        self.input_data_path = kwargs.get('input_data_path', 'data/input/coinbase-1h-btc-usd.csv')
+        self.input_data_path = kwargs.get('input_data_path', 'data/input/EURUSD60.csv')
         self.params_db_path = kwargs.get('params_db_path', 'sqlite:///data/params.db')
 
         self.date_format = kwargs.get('date_format', ProviderDateFormat.DATETIME_HOUR_24)
